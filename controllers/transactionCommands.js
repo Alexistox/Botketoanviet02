@@ -122,9 +122,25 @@ const handlePlusCommand = async (bot, msg) => {
     // Tạo chi tiết giao dịch
     let details;
     if (cardCode) {
-      details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *${formatSmart(newUSDT, numberFormat)}* (${cardCode})`;
+      if (xValue === 0 && yValue === 1) {
+        // Không hiển thị phần tính toán khi rate = 0 và exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)} (${cardCode}) ${senderName}`;
+      } else if (xValue !== 0 && yValue === 1) {
+        // Không hiển thị phần /${yValue} khi exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)}\\*${rateFactor} = *${formatSmart(newUSDT, numberFormat)}* (${cardCode}) ${senderName}`;
+      } else {
+        details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *${formatSmart(newUSDT, numberFormat)}* (${cardCode}) ${senderName}`;
+      }
     } else {
-      details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *${formatSmart(newUSDT, numberFormat)}*`;
+      if (xValue === 0 && yValue === 1) {
+        // Không hiển thị phần tính toán khi rate = 0 và exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)} ${senderName}`;
+      } else if (xValue !== 0 && yValue === 1) {
+        // Không hiển thị phần /${yValue} khi exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)}\\*${rateFactor} = *${formatSmart(newUSDT, numberFormat)}* ${senderName}`;
+      } else {
+        details = `\`${formatTimeString(new Date())}\` ${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *${formatSmart(newUSDT, numberFormat)}* ${senderName}`;
+      }
     }
     
     // Lưu giao dịch mới
@@ -298,9 +314,25 @@ const handleMinusCommand = async (bot, msg) => {
     // Tạo chi tiết giao dịch
     let details;
     if (cardCode) {
-      details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *-${formatSmart(minusUSDT, numberFormat)}* (${cardCode})`;
+      if (xValue === 0 && yValue === 1) {
+        // Không hiển thị phần tính toán khi rate = 0 và exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)} (${cardCode}) ${senderName}`;
+      } else if (xValue !== 0 && yValue === 1) {
+        // Không hiển thị phần /${yValue} khi exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)}\\*${rateFactor} = *-${formatSmart(minusUSDT, numberFormat)}* (${cardCode}) ${senderName}`;
+      } else {
+        details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *-${formatSmart(minusUSDT, numberFormat)}* (${cardCode}) ${senderName}`;
+      }
     } else {
-      details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *-${formatSmart(minusUSDT, numberFormat)}*`;
+      if (xValue === 0 && yValue === 1) {
+        // Không hiển thị phần tính toán khi rate = 0 và exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)} ${senderName}`;
+      } else if (xValue !== 0 && yValue === 1) {
+        // Không hiển thị phần /${yValue} khi exchangeRate = 1
+        details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)}\\*${rateFactor} = *-${formatSmart(minusUSDT, numberFormat)}* ${senderName}`;
+      } else {
+        details = `\`${formatTimeString(new Date())}\` -${formatSmart(amountVND, numberFormat)}\\*${rateFactor}/${yValue} = *-${formatSmart(minusUSDT, numberFormat)}* ${senderName}`;
+      }
     }
     // Lưu giao dịch mới
     const transaction = new Transaction({
@@ -475,9 +507,9 @@ const handlePercentCommand = async (bot, msg) => {
     // Tạo chi tiết giao dịch
     let details;
     if (cardCode) {
-      details = `\`${formatTimeString(new Date())}\`    [${formatSmart(payUSDT, numberFormat)}](https://t.me/@id7590104666)  ${currencyUnit} (${cardCode})`;
+      details = `\`${formatTimeString(new Date())}\`    [${formatSmart(payUSDT, numberFormat)}](https://t.me/@id7590104666)  ${currencyUnit} (${cardCode}) ${senderName}`;
     } else {
-      details = `\`${formatTimeString(new Date())}\`    [${formatSmart(payUSDT, numberFormat)}](https://t.me/@id7590104666)  ${currencyUnit}`;
+      details = `\`${formatTimeString(new Date())}\`    [${formatSmart(payUSDT, numberFormat)}](https://t.me/@id7590104666)  ${currencyUnit} ${senderName}`;
     }
     
     // Lưu giao dịch mới
